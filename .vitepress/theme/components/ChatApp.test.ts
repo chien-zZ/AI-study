@@ -71,7 +71,7 @@ describe('ChatApp workspace', () => {
     const wrapper = mount(ChatApp)
     await flushPromises()
     const personaButtons = wrapper.findAll('.persona-switch button')
-    expect(personaButtons.map((item) => item.text())).toEqual(['普通助手', 'Vue 框架助手', '雌小鬼亚亚'])
+    expect(personaButtons.map((item) => item.text())).toEqual(['普通助手', 'Vue 框架助手', '雌小鬼亚亚', '斗罗大陆'])
 
     await personaButtons[1].trigger('click')
     await flushPromises()

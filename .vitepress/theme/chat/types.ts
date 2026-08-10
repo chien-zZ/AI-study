@@ -1,4 +1,5 @@
-export type PersonaId = 'normal' | 'vue' | 'brat'
+// 角色类型模块：与后端 PersonaId 白名单保持一致，避免提交未知角色。
+export type PersonaId = 'normal' | 'vue' | 'brat' | 'douluo_dalu'
 export type MessageRole = 'user' | 'assistant'
 
 export interface ChatSource {

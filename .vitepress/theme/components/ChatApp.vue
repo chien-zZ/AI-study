@@ -51,7 +51,8 @@ const persona = computed(() => activeConversation.value?.persona || 'normal')
 const canSend = computed(() => input.value.trim().length > 0 && !generating.value && !loadingConversation.value)
 
 function personaLabel(value: PersonaId): string {
-  return { normal: '普通助手', vue: 'Vue 框架助手', brat: '雌小鬼亚亚' }[value]
+  // 角色展示模块：集中维护会话标题区和消息标签使用的角色名称。
+  return { normal: '普通助手', vue: 'Vue 框架助手', brat: '雌小鬼亚亚', douluo_dalu: '斗罗大陆' }[value]
 }
 
 function formatError(error: unknown): string {
@@ -403,6 +404,7 @@ onMounted(async () => {
               <button :class="{ active: persona === 'normal' }" :disabled="messages.length > 0 || generating" :title="messages.length > 0 ? '当前不允许切换人格，如需切换人格请新建对话' : ''" type="button" @click="selectPersona('normal')">普通助手</button>
               <button :class="{ active: persona === 'vue' }" :disabled="messages.length > 0 || generating" :title="messages.length > 0 ? '当前不允许切换人格，如需切换人格请新建对话' : ''" type="button" @click="selectPersona('vue')">Vue 框架助手</button>
               <button :class="{ active: persona === 'brat' }" :disabled="messages.length > 0 || generating" :title="messages.length > 0 ? '当前不允许切换人格，如需切换人格请新建对话' : ''" type="button" @click="selectPersona('brat')">雌小鬼亚亚</button>
+              <button :class="{ active: persona === 'douluo_dalu' }" :disabled="messages.length > 0 || generating" :title="messages.length > 0 ? '当前不允许切换人格，如需切换人格请新建对话' : ''" type="button" @click="selectPersona('douluo_dalu')">斗罗大陆</button>
             </div>
             <small v-if="messages.length > 0" class="persona-lock-notice">当前不允许切换人格，如需切换人格请新建对话</small>
           </div>
@@ -418,7 +420,7 @@ onMounted(async () => {
           <div v-if="loadingConversation" class="empty-state"><span>正在加载…</span></div>
           <div v-else-if="messages.length === 0" class="empty-state">
             <span class="empty-icon" aria-hidden="true"><Database v-if="persona === 'vue'" :size="22" /><Sparkles v-else :size="22" /></span>
-            <strong>{{ persona === 'vue' ? '可以开始询问 Vue 框架问题' : persona === 'brat' ? '大叔，想聊点什么？' : '有什么想问的？' }}</strong>
+            <strong>{{ persona === 'vue' ? '可以开始询问 Vue 框架问题' : persona === 'brat' ? '大叔，想聊点什么？' : persona === 'douluo_dalu' ? '欢迎来到斗罗大陆' : '有什么想问的？' }}</strong>
           </div>
           <article v-for="(message, index) in messages" :key="message.id || index" class="message" :class="message.role">
             <span class="message-label">{{ message.role === 'user' ? '你' : personaLabel(persona) }}</span>

@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 from app.chat_service import (
     BRAT_SYSTEM_PROMPT,
+    DOULUO_DALU_SYSTEM_PROMPT,
     NORMAL_SYSTEM_PROMPT,
     ChatService,
     ContentSafetyError,
@@ -77,6 +78,18 @@ class ChatServiceTests(unittest.TestCase):
         self.assertEqual(
             completions.last_request["messages"][0]["content"],
             BRAT_SYSTEM_PROMPT,
+        )
+
+    def test_stream_reply_uses_douluo_dalu_persona(self) -> None:
+        """斗罗大陆角色模块：验证角色 ID 会映射到对应的系统提示词。"""
+
+        service, completions = make_service([make_chunk("回答")])
+
+        list(service.stream_reply("测试问题", persona_id="douluo_dalu"))
+
+        self.assertEqual(
+            completions.last_request["messages"][0]["content"],
+            DOULUO_DALU_SYSTEM_PROMPT,
         )
 
     def test_stream_reply_injects_memory_as_untrusted_history(self) -> None:

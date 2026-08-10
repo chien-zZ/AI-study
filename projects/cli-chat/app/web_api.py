@@ -44,7 +44,8 @@ class HistoryMessage(BaseModel):
         return value
 
 
-PersonaId = Literal["brat", "normal", "vue"]
+# 角色白名单模块：只允许服务端已经注册的角色 ID 进入聊天链路。
+PersonaId = Literal["brat", "douluo_dalu", "normal", "vue"]
 
 
 class ChatRequest(BaseModel):
